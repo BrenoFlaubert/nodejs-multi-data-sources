@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    container_name: pg
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+      - POSTGRES_DB=${POSTGRES_DB_NAME}
+    ports:
+      - 5421:5432
+    networks:
+      - modulo-6
+  adminer:
+    image: adminer
+    container_name: pg_admin
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - modulo-6
+  mongodb:
+    image: mongo:latest
+    container_name: mongo_db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASS}
+    ports:
+      - 27017:27017
+    networks:
+      - modulo-6
+networks:
+  modulo-6:
+    driver: bridge
