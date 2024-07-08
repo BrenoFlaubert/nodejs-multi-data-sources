@@ -13,7 +13,7 @@ Bem-vindo ao projeto **Multi Banco de Dados**! Este projeto foi desenvolvido par
 - **MongoDB**: Banco de dados NoSQL orientado a documentos, conhecido por sua flexibilidade e escalabilidade.
 - **Postgres**: Banco de dados relacional SQL altamente avançado, conhecido por sua robustez e conformidade com padrões SQL.
 - **Docker e docker-compose**: Ferramentas de contêinerização que simplificam a configuração, a implantação e a execução de aplicações em ambientes isolados.
-
+- **Mocha e Supertest**
 ## Configuração do Ambiente
 
 Para configurar e executar este projeto localmente, siga as instruções abaixo:
