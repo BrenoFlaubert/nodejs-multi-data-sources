@@ -20,8 +20,8 @@ Para configurar e executar este projeto localmente, siga as instruções abaixo:
 
 1. **Clone o repositório:**
    ```bash
-   git clone
-   cd 
+   git clone git@github.com:BrenoFlaubert/nodejs-multi-data-sources.git
+   cd nodejs-multi-data-sources
    ```
 
 2. **Instale as dependências:**
