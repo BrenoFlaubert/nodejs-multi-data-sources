@@ -5,7 +5,7 @@ const routes = require('../routes/base/hero-routes');
 const assert = require('assert');
 const fastify = require('fastify');
 
-describe.only('Suite de testes da API Herois com MongoDB', function (){
+describe('Suite de testes da API Herois com MongoDB', function (){
     let app;
     let context;
     this.beforeAll(async () => {
@@ -28,6 +28,17 @@ describe.only('Suite de testes da API Herois com MongoDB', function (){
         assert.deepEqual(statusCode, 200)
         const data = JSON.parse(response.body)
         assert.ok(Array.isArray(data))
+    })
+    it('Pagination - GET /heros', async () => {
+        const response = await app.inject({
+            method: 'GET',
+            url: '/heros?skip=0&limit=1'
+        })
+        const statusCode = response.statusCode
+        assert.deepEqual(statusCode, 200)
+        const data = JSON.parse(response.body)
+        console.log(data)
+        assert.ok(data.length === 1)
     })
 })
 
