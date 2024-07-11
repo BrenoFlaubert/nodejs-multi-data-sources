@@ -47,6 +47,21 @@ async function routes(app, options) {
       return 'Erro Interno'
     }
   });
+  app.delete('/heros/:id', async (request) => {
+    const validationSchema = z.object({
+      id: z.string()
+    })
+    try {
+      const { id } = validationSchema.parse(request.params)
+      await app.context.delete(id)
+      return {
+        message: 'Heroi deletado com sucesso!'
+      }
+    } catch (error) {
+      console.error('error: ', error )
+      return 'Erro Interno'
+    }
+  })
 }
 
 module.exports = routes;
