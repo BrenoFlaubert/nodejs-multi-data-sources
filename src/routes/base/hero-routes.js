@@ -1,4 +1,4 @@
-const { z } = require('zod');
+const { z, string } = require('zod');
 
 const heroSchema = z.object({
   heroName: z.string().min(3).max(100),
@@ -6,19 +6,52 @@ const heroSchema = z.object({
 });
 
 async function routes(app, options) {
-  app.get("/heros", async (request, reply) => {
-    const { nome, skip, limit } = request.query;
-    let query = {};
-    if (nome) {
-      query.nome = nome;
+  app.get(
+    "/heros",
+    // {
+    //   schema: {
+    //     description:
+    //       "Get a user by name and takes limit and skip as optional query parameters",
+    //     tags: ["Heros"],
+    //     summary: "Gets hero information",
+    //     params: {},
+    //     querystring: {
+    //       type: "object",
+    //       properties: {
+    //         limit: { type: "string" },
+    //         skip: { type: "string" },
+    //       },
+    //     },
+    //     response: {
+    //       200: {
+    //         description: "Successful response",
+    //         type: "array",
+    //         heros: {
+    //           type: "object",
+    //           properties: {
+    //             _id: { type: "string", format: "uuid" },
+    //             heroName: { type: "string" },
+    //             heroPower: { type: "string" },
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
+    async (request, reply) => {
+      const { nome, skip, limit } = request.query;
+      let query = {};
+      if (nome) {
+        query.nome = nome;
+      }
+      const response = await app.context.read(
+        query,
+        parseInt(skip),
+        parseInt(limit)
+      );
+      reply.send(response).status(200);
     }
-    const response = await app.context.read(
-      query,
-      parseInt(skip),
-      parseInt(limit)
-    );
-    reply.send(response).status(200);
-  });
+  );
   app.post("/heros", async (request) => {
     try {
       const { heroName, heroPower } = heroSchema.parse(request.body);

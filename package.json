@@ -4,14 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha src/tests/*.test.js"
+    "test": "mocha src/tests/*.test.js",
+    "dev": "nodemon src/api.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fastify/static": "^7.0.4",
+    "@fastify/swagger": "^8.14.0",
+    "@fastify/swagger-ui": "^4.0.0",
     "dotenv": "^16.4.5",
     "fastify": "^4.28.1",
+    "fastify-swagger": "^5.2.0",
     "fastify-zod": "^1.4.0",
     "mongodb": "^6.8.0",
     "mongoose": "^8.4.4",
@@ -21,6 +26,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "mocha": "^10.5.2"
+    "mocha": "^10.5.2",
+    "nodemon": "^3.1.4"
   }
 }
