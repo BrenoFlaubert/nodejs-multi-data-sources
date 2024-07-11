@@ -5,7 +5,12 @@ const routes = require('../routes/base/hero-routes');
 const assert = require('assert');
 const fastify = require('fastify');
 
-describe('Suite de testes da API Herois com MongoDB', function (){
+const MOCK_HERO = {
+    heroName: 'Chapolin',
+    heroPower: 'Marreta Bionica'
+}
+
+describe.only('Suite de testes da API Herois com MongoDB', function (){
     let app;
     let context;
     this.beforeAll(async () => {
@@ -19,7 +24,18 @@ describe('Suite de testes da API Herois com MongoDB', function (){
     this.afterAll(async () => {
         await app.close()
     })
-    it('GET /heros', async function () {
+    it('Create new Hero - POST /heros', async () => {
+        const response = await app.inject({
+            method: 'POST',
+            url: '/heros',
+            payload: MOCK_HERO
+        })
+        const statusCode = response.statusCode
+        assert.ok(statusCode === 200)
+        const { message } = JSON.parse(response.payload)
+        assert.deepEqual(message, 'Heroi cadastrado com sucesso!')
+    })
+    it('List all heros - GET /heros', async function () {
         const response = await app.inject({
             method: 'GET',
             url: '/heros'
@@ -29,7 +45,7 @@ describe('Suite de testes da API Herois com MongoDB', function (){
         const data = JSON.parse(response.body)
         assert.ok(Array.isArray(data))
     })
-    it('Pagination - GET /heros', async () => {
+    it('Pagination list 1 hero - GET /heros', async () => {
         const response = await app.inject({
             method: 'GET',
             url: '/heros?skip=0&limit=1'
@@ -37,7 +53,6 @@ describe('Suite de testes da API Herois com MongoDB', function (){
         const statusCode = response.statusCode
         assert.deepEqual(statusCode, 200)
         const data = JSON.parse(response.body)
-        console.log(data)
         assert.ok(data.length === 1)
     })
 })
