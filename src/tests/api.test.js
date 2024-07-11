@@ -9,7 +9,10 @@ const MOCK_HERO = {
     heroName: 'Chapolin',
     heroPower: 'Marreta Bionica'
 }
-
+const MOCK_UPDATE_HERO = {
+    heroName: 'Quico',
+    heroPower: 'Dona Florinda'
+}
 describe.only('Suite de testes da API Herois com MongoDB', function (){
     let app;
     let context;
@@ -45,7 +48,7 @@ describe.only('Suite de testes da API Herois com MongoDB', function (){
         const data = JSON.parse(response.body)
         assert.ok(Array.isArray(data))
     })
-    it('Pagination list 1 hero - GET /heros', async () => {
+    it('Pagination list 1 hero - GET /heros?skip=0&limit=1', async () => {
         const response = await app.inject({
             method: 'GET',
             url: '/heros?skip=0&limit=1'
@@ -54,6 +57,23 @@ describe.only('Suite de testes da API Herois com MongoDB', function (){
         assert.deepEqual(statusCode, 200)
         const data = JSON.parse(response.body)
         assert.ok(data.length === 1)
+    })
+    it('Update Hero - PATCH /herois/:id', async () => {
+        const heros = await app.inject({
+            method: 'GET',
+            url: '/heros'
+        })
+        const [ { _id } ] = JSON.parse(heros.body)
+        const response = await app.inject({
+            method: 'PATCH',
+            url: `/heros/${_id}`,
+            payload: MOCK_UPDATE_HERO
+        })
+        console.log(response)
+        const statusCode = response.statusCode
+        assert.deepEqual(statusCode, 200)
+        const data = JSON.parse(response.body)
+        assert.deepEqual(data.message, 'Heroi atualizado com sucesso!')
     })
 })
 

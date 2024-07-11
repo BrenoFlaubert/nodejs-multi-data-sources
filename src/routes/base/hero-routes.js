@@ -31,6 +31,22 @@ async function routes(app, options) {
       return "Internal Error";
     }
   });
+  app.patch('/heros/:id', async (request) => {
+    const validationSchema = z.object({
+      id: z.string()
+    })
+    try {
+      const { id } = validationSchema.parse(request.params)
+      const heroUpdate = heroSchema.parse(request.body)
+      await app.context.update(id, heroUpdate)
+      return {
+        message: 'Heroi atualizado com sucesso!'
+      }
+    } catch (error) {
+      console.error('error: ', error )
+      return 'Erro Interno'
+    }
+  });
 }
 
 module.exports = routes;
