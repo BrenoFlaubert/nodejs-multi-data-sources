@@ -8,7 +8,6 @@ Bem-vindo ao projeto **Multi Banco de Dados**! Este projeto foi desenvolvido par
 ## Tecnologias Utilizadas
 
 - **Multi Datasources Strategy Pattern**: Implementação do padrão de design Strategy para gerenciar múltiplas fontes de dados.
-- **Testes Automatizados com Mocha**: Utilização do Mocha para a criação e execução de testes automatizados, garantindo a qualidade do código.
 - **Mongoose**: Biblioteca de modelagem de dados para MongoDB, proporcionando uma maneira simples e poderosa de definir esquemas e interagir com o banco de dados.
 - **Sequelize**: ORM (Object-Relational Mapping) para Node.js que facilita a interação com bancos de dados SQL, incluindo Postgres.
 - **MongoDB**: Banco de dados NoSQL orientado a documentos
